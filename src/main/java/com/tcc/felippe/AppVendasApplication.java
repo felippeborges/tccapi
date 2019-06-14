@@ -1,5 +1,6 @@
 package com.tcc.felippe;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.tcc.felippe.domain.Categoria;
+import com.tcc.felippe.domain.Cidade;
+import com.tcc.felippe.domain.Estado;
 import com.tcc.felippe.domain.Produto;
 import com.tcc.felippe.repositories.CategoriaRepository;
+import com.tcc.felippe.repositories.CidadeRepository;
+import com.tcc.felippe.repositories.EstadoRepository;
 import com.tcc.felippe.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -19,6 +24,10 @@ public class AppVendasApplication implements CommandLineRunner {
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppVendasApplication.class, args);
@@ -45,6 +54,19 @@ public class AppVendasApplication implements CommandLineRunner {
 
 		categoriaRepository.save(Arrays.asList(cat1, cat2, cat3, cat4));
 		produtoRepository.save(Arrays.asList(p1, p2, p3));
+
+		Estado est1 = new Estado(null, "Goiás");
+		Estado est2 = new Estado(null, "Mato Grosso");
+
+		Cidade cid1 = new Cidade(null, "Iporá", est1);
+		Cidade cid2 = new Cidade(null, "Cuiabá", est2);
+
+		est1.getCidades().addAll(Arrays.asList(cid1));
+		est2.getCidades().addAll(Arrays.asList(cid2));
+		
+		estadoRepository.save(Arrays.asList(est1, est2));
+		cidadeRepository.save(Arrays.asList(cid1, cid2));
+		
 
 	}
 

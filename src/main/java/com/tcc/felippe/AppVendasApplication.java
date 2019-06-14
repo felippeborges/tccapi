@@ -27,14 +27,14 @@ public class AppVendasApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Categoria cat1 = new Categoria(null, "Café Tradicional ou Extraforte");
-		Categoria cat2 = new Categoria(null, "Cafés Superiores");
-		Categoria cat3 = new Categoria(null, "Cafés Gourmet");
-		Categoria cat4 = new Categoria(null, "cafés Especiais");
+		Categoria cat1 = new Categoria(null, "Categoria 1");
+		Categoria cat2 = new Categoria(null, "Categoria 2");
+		Categoria cat3 = new Categoria(null, "Categoria 3");
+		Categoria cat4 = new Categoria(null, "Categoria 4");
 
-		Produto p1 = new Produto(null, "Café três corações ExtraForte", 16.50);
-		Produto p2 = new Produto(null, "Café Pilão ExtraForte", 15.00);
-		Produto p3 = new Produto(null, "Café Prisma Qualita", 25.00);
+		Produto p1 = new Produto(null, "Produto 1", 16.50);
+		Produto p2 = new Produto(null, "Produto 2", 15.00);
+		Produto p3 = new Produto(null, "Produto 3", 25.00);
 
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2));
 		cat3.getProdutos().addAll(Arrays.asList(p3));

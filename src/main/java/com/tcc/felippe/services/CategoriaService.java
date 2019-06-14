@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.tcc.felippe.domain.Categoria;
 import com.tcc.felippe.repositories.CategoriaRepository;
+import com.tcc.felippe.services.exception.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -14,6 +15,9 @@ public class CategoriaService {
 
 	public Categoria buscar(Integer id) {
 		Categoria obj = caterpository.findOne(id);
+		if(obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! ID:"+ id + ", Tipo :" + Categoria.class.getName());
+		}
 		return obj;
 	}
 }

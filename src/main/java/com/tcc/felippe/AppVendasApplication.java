@@ -1,6 +1,5 @@
 package com.tcc.felippe;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.tcc.felippe.domain.Categoria;
 import com.tcc.felippe.domain.Cidade;
+import com.tcc.felippe.domain.Cliente;
+import com.tcc.felippe.domain.Endereco;
 import com.tcc.felippe.domain.Estado;
 import com.tcc.felippe.domain.Produto;
+import com.tcc.felippe.domain.enums.TipoCliente;
 import com.tcc.felippe.repositories.CategoriaRepository;
 import com.tcc.felippe.repositories.CidadeRepository;
+import com.tcc.felippe.repositories.ClienteRepository;
+import com.tcc.felippe.repositories.EnderecoRepository;
 import com.tcc.felippe.repositories.EstadoRepository;
 import com.tcc.felippe.repositories.ProdutoRepository;
 
@@ -28,6 +32,10 @@ public class AppVendasApplication implements CommandLineRunner {
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppVendasApplication.class, args);
@@ -54,6 +62,7 @@ public class AppVendasApplication implements CommandLineRunner {
 
 		categoriaRepository.save(Arrays.asList(cat1, cat2, cat3, cat4));
 		produtoRepository.save(Arrays.asList(p1, p2, p3));
+//____________________________________________________________________________//
 
 		Estado est1 = new Estado(null, "Goiás");
 		Estado est2 = new Estado(null, "Mato Grosso");
@@ -63,11 +72,24 @@ public class AppVendasApplication implements CommandLineRunner {
 
 		est1.getCidades().addAll(Arrays.asList(cid1));
 		est2.getCidades().addAll(Arrays.asList(cid2));
-		
+
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(cid1, cid2));
-		
+//___________________________________________________________________________//		
 
+		Cliente cli1 = new Cliente(null, "Felippe Borges", "Felippe-b@hotmail.com", "025905781-99",
+				TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("6499271-1866", "36743599"));
+
+		Endereco e1 = new Endereco(null, "Av. R1 ESQ. Rua D", "S/N", "Proximo ao Hospital Municipal", "Mato Grosso",
+				"76200-000", cli1, cid1);
+		Endereco e2 = new Endereco(null, "Teste Endereço logradouro", "100", "Apto 102", "Central", "76200-000", cli1,
+				cid2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		clienteRepository.save(Arrays.asList(cli1));
+		enderecoRepository.save(Arrays.asList(e1,e2));
 	}
 
 }

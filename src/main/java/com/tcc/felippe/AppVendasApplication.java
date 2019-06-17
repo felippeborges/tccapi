@@ -1,5 +1,6 @@
 package com.tcc.felippe;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,20 @@ import com.tcc.felippe.domain.Cidade;
 import com.tcc.felippe.domain.Cliente;
 import com.tcc.felippe.domain.Endereco;
 import com.tcc.felippe.domain.Estado;
+import com.tcc.felippe.domain.Pagamento;
+import com.tcc.felippe.domain.PagamentoComCartao;
 import com.tcc.felippe.domain.Produto;
+import com.tcc.felippe.domain.Venda;
+import com.tcc.felippe.domain.enums.EstadoPagamento;
 import com.tcc.felippe.domain.enums.TipoCliente;
 import com.tcc.felippe.repositories.CategoriaRepository;
 import com.tcc.felippe.repositories.CidadeRepository;
 import com.tcc.felippe.repositories.ClienteRepository;
 import com.tcc.felippe.repositories.EnderecoRepository;
 import com.tcc.felippe.repositories.EstadoRepository;
+import com.tcc.felippe.repositories.PagamentoRepository;
 import com.tcc.felippe.repositories.ProdutoRepository;
+import com.tcc.felippe.repositories.VendaRepository;
 
 @SpringBootApplication
 public class AppVendasApplication implements CommandLineRunner {
@@ -36,6 +43,10 @@ public class AppVendasApplication implements CommandLineRunner {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private VendaRepository vendaRepository;
+	@Autowired
+	private PagamentoRepository pagamenRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppVendasApplication.class, args);
@@ -89,7 +100,26 @@ public class AppVendasApplication implements CommandLineRunner {
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 
 		clienteRepository.save(Arrays.asList(cli1));
-		enderecoRepository.save(Arrays.asList(e1,e2));
+		enderecoRepository.save(Arrays.asList(e1, e2));
+
+//_______________________________________________________________________________________________________________//
+
+		SimpleDateFormat data = new SimpleDateFormat("dd/mm/yyyy HH:mm");
+
+		Venda venda1 = new Venda(null, data.parse("17/06/2019 03:15"), cli1, e1);
+		Venda venda2 = new Venda(null, data.parse("17/06/2019 03:21"), cli1, e2);
+
+		Pagamento pg1 = new PagamentoComCartao(null, EstadoPagamento.PAGO, venda1, 10);
+		venda1.setPagamento(pg1);
+
+		Pagamento pg2 = new PagamentoComCartao(null, EstadoPagamento.AGUARDANDO_PAGAMENTO, venda2, 12);
+		venda2.setPagamento(pg2);
+
+		cli1.getVendas().addAll(Arrays.asList(venda1, venda2));
+
+		vendaRepository.save(Arrays.asList(venda1, venda2));
+		pagamenRepository.save(Arrays.asList(pg1, pg2));
+
 	}
 
 }

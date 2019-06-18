@@ -13,6 +13,7 @@ import com.tcc.felippe.domain.Cidade;
 import com.tcc.felippe.domain.Cliente;
 import com.tcc.felippe.domain.Endereco;
 import com.tcc.felippe.domain.Estado;
+import com.tcc.felippe.domain.ItemVenda;
 import com.tcc.felippe.domain.Pagamento;
 import com.tcc.felippe.domain.PagamentoComCartao;
 import com.tcc.felippe.domain.Produto;
@@ -24,6 +25,7 @@ import com.tcc.felippe.repositories.CidadeRepository;
 import com.tcc.felippe.repositories.ClienteRepository;
 import com.tcc.felippe.repositories.EnderecoRepository;
 import com.tcc.felippe.repositories.EstadoRepository;
+import com.tcc.felippe.repositories.ItemVendaRepository;
 import com.tcc.felippe.repositories.PagamentoRepository;
 import com.tcc.felippe.repositories.ProdutoRepository;
 import com.tcc.felippe.repositories.VendaRepository;
@@ -47,6 +49,8 @@ public class AppVendasApplication implements CommandLineRunner {
 	private VendaRepository vendaRepository;
 	@Autowired
 	private PagamentoRepository pagamenRepository;
+	@Autowired
+	private ItemVendaRepository itemVendaRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppVendasApplication.class, args);
@@ -54,7 +58,7 @@ public class AppVendasApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+//_____________________CATEGORIA__PRODUTO_________________________________________//
 		Categoria cat1 = new Categoria(null, "Categoria 1");
 		Categoria cat2 = new Categoria(null, "Categoria 2");
 		Categoria cat3 = new Categoria(null, "Categoria 3");
@@ -73,7 +77,7 @@ public class AppVendasApplication implements CommandLineRunner {
 
 		categoriaRepository.save(Arrays.asList(cat1, cat2, cat3, cat4));
 		produtoRepository.save(Arrays.asList(p1, p2, p3));
-//____________________________________________________________________________//
+//____________________________CIDADE_ESTADO________________________________________________//
 
 		Estado est1 = new Estado(null, "Goiás");
 		Estado est2 = new Estado(null, "Mato Grosso");
@@ -86,7 +90,8 @@ public class AppVendasApplication implements CommandLineRunner {
 
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(cid1, cid2));
-//___________________________________________________________________________//		
+
+//__________________________CLIENTE_ENDEREÇO_________________________________________________//		
 
 		Cliente cli1 = new Cliente(null, "Felippe Borges", "Felippe-b@hotmail.com", "025905781-99",
 				TipoCliente.PESSOAFISICA);
@@ -102,7 +107,7 @@ public class AppVendasApplication implements CommandLineRunner {
 		clienteRepository.save(Arrays.asList(cli1));
 		enderecoRepository.save(Arrays.asList(e1, e2));
 
-//_______________________________________________________________________________________________________________//
+//______________________________VENDA_________________________________________________________________________________//
 
 		SimpleDateFormat data = new SimpleDateFormat("dd/mm/yyyy HH:mm");
 
@@ -120,6 +125,18 @@ public class AppVendasApplication implements CommandLineRunner {
 		vendaRepository.save(Arrays.asList(venda1, venda2));
 		pagamenRepository.save(Arrays.asList(pg1, pg2));
 
+//______________________________________ITENS_DA_VENDA___________________________________________________________________//
+
+		ItemVenda itns1 = new ItemVenda(venda1, p1, 0.00, 1, 100.00);
+
+		ItemVenda itns2 = new ItemVenda(venda1, p2, 0.00, 2, 500.00);
+
+		venda1.getItens().addAll(Arrays.asList(itns1, itns2));
+
+		p1.getItens().addAll(Arrays.asList(itns1));
+		p2.getItens().addAll(Arrays.asList(itns1));
+		
+		itemVendaRepository.save(Arrays.asList(itns1,itns2));
 	}
 
 }

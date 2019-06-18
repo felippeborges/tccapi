@@ -11,12 +11,12 @@ import com.tcc.felippe.services.exception.ObjectNotFoundException;
 public class ClienteService {
 
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClienteRepository clientepository;
 
-	public Cliente buscar(Integer id) {
-		Cliente obj = clienteRepository.findOne(id);
-		if (obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! ID:" + id + ", Tipo :" + Cliente.class.getName());
+	public Cliente find(Integer id) {
+		Cliente obj = clientepository.findOne(id);
+		if(obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! ID:"+ id + ", Tipo :" + Cliente.class.getName());
 		}
 		return obj;
 	}

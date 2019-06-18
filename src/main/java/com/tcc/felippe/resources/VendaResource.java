@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcc.felippe.domain.Cliente;
-import com.tcc.felippe.services.ClienteService;
+import com.tcc.felippe.domain.Venda;
+import com.tcc.felippe.services.VendaService;
 
 @RestController
-@RequestMapping(value = "/clientes")
-public class ClienteResource {
+@RequestMapping(value = "/vendas")
+public class VendaResource {
 
 	@Autowired
-	private ClienteService service;
+	private VendaService service;
 
 	@GetMapping
 	@RequestMapping(value = "/{id}")
-	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
+	public ResponseEntity<Venda> find(@PathVariable Integer id) {
 
-		Cliente obj = service.find(id);
+		Venda obj = service.buscar(id);
 
 		return ResponseEntity.ok().body(obj);
 	}

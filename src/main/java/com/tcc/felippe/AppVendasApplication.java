@@ -63,6 +63,10 @@ public class AppVendasApplication implements CommandLineRunner {
 		Categoria cat2 = new Categoria(null, "Categoria 2");
 		Categoria cat3 = new Categoria(null, "Categoria 3");
 		Categoria cat4 = new Categoria(null, "Categoria 4");
+		Categoria cat5 = new Categoria(null, "Categoria 5");
+		Categoria cat6 = new Categoria(null, "Categoria 6");
+		Categoria cat7 = new Categoria(null, "Categoria 7");
+		Categoria cat8 = new Categoria(null, "Categoria 8");
 
 		Produto p1 = new Produto(null, "Produto 1", 16.50);
 		Produto p2 = new Produto(null, "Produto 2", 15.00);
@@ -75,7 +79,7 @@ public class AppVendasApplication implements CommandLineRunner {
 		p2.getCategorias().addAll(Arrays.asList(cat1));
 		p3.getCategorias().addAll(Arrays.asList(cat3));
 
-		categoriaRepository.save(Arrays.asList(cat1, cat2, cat3, cat4));
+		categoriaRepository.save(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8));
 		produtoRepository.save(Arrays.asList(p1, p2, p3));
 //____________________________CIDADE_ESTADO________________________________________________//
 
@@ -135,8 +139,8 @@ public class AppVendasApplication implements CommandLineRunner {
 
 		p1.getItens().addAll(Arrays.asList(itns1));
 		p2.getItens().addAll(Arrays.asList(itns1));
-		
-		itemVendaRepository.save(Arrays.asList(itns1,itns2));
+
+		itemVendaRepository.save(Arrays.asList(itns1, itns2));
 	}
 
 }

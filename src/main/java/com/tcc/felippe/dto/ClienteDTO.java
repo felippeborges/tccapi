@@ -2,26 +2,31 @@ package com.tcc.felippe.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.tcc.felippe.domain.Categoria;
+import com.tcc.felippe.domain.Cliente;
 
-public class CategoriaDTO implements Serializable {
+public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	@NotEmpty(message = "Preencimento obrigatório")
-	@Length(min = 5, max = 50, message = "O tamanho minimo deve ser entre 5 e 50 caracteres ")
+	@Length(min = 5, max = 100, message = "O tamanho minimo deve ser entre 5 e 100 caracteres ")
 	private String nome;
+	@NotEmpty(message = "Preencimento obrigatório")
+	@Email(message = "E-mail inválido")
+	private String email;
 
-	public CategoriaDTO() {
+	public ClienteDTO() {
 
 	}
 
-	public CategoriaDTO(Categoria obj) {
+	public ClienteDTO(Cliente obj) {
 		id = obj.getId();
 		nome = obj.getNome();
+		email = obj.getEmail();
 	}
 
 	public Integer getId() {
@@ -38,6 +43,14 @@ public class CategoriaDTO implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

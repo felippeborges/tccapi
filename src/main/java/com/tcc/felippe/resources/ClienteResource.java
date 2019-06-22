@@ -1,5 +1,6 @@
 package com.tcc.felippe.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.tcc.felippe.domain.Cliente;
 import com.tcc.felippe.dto.ClienteDTO;
+import com.tcc.felippe.dto.ClienteNewDTO;
 import com.tcc.felippe.services.ClienteService;
 
 @RestController
@@ -41,6 +44,15 @@ public class ClienteResource {
 		List<Cliente> lista = service.findAll();
 		List<ClienteDTO> listaDTO = lista.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listaDTO);
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) {
+		Cliente obj = service.fromDTO(objDTO);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

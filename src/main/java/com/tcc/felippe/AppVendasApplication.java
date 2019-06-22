@@ -67,7 +67,7 @@ public class AppVendasApplication implements CommandLineRunner {
 		Produto p1 = new Produto(null, "Produto 1", 16.50);
 		Produto p2 = new Produto(null, "Produto 2", 15.00);
 		Produto p3 = new Produto(null, "Produto 3", 25.00);
-		Produto p4 = new Produto(null, "Produto 4", 1.50);
+		Produto p4 = new Produto(null, "computador 4", 1.50);
 		Produto p5 = new Produto(null, "Produto 5", 5.00);
 		Produto p6 = new Produto(null, "Produto 6", 125.00);
 		Produto p7 = new Produto(null, "Produto 7", 126.50);

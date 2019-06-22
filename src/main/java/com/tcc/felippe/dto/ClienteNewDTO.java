@@ -2,20 +2,37 @@ package com.tcc.felippe.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.tcc.felippe.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Preencimento obrigatório")
+	@Length(min = 5, max = 100, message = "O tamanho minimo deve ser entre 5 e 100 caracteres ")
 	private String nome;
+	@NotEmpty(message = "Preencimento obrigatório")
+	@Email(message = "E-mail inválido")
 	private String email;
+
+	@NotEmpty(message = "Preencimento obrigatório")
 	private String cpfOUcnpj;
+
 	private Integer tipo;
 
+	@NotEmpty(message = "Preencimento obrigatório")
 	private String logradouro;
 	private String numero;
 	private String complemento;
+	@NotEmpty(message = "Preencimento obrigatório")
 	private String bairro;
 	private String cep;
 
+	@NotEmpty(message = "Preencimento obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;

@@ -61,7 +61,7 @@ public class Venda implements Serializable {
 		for (ItemVenda iv : itens) {
 			soma = soma + iv.getSubTotal();
 		}
-		return soma;
+		return soma; 
 	}
 	
 	public Integer getId() {

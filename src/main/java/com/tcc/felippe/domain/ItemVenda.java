@@ -36,14 +36,22 @@ public class ItemVenda implements Serializable {
 	public double getSubTotal() {
 		return (preco - desconto) * quantidade;
 	}
-	
+
 	@JsonIgnore
 	public Venda getVenda() {
 		return id.getVenda();
 	}
 
+	public void setVenda(Venda venda) {
+		id.setVenda(venda);
+	}
+
 	public Produto getProduto() {
 		return id.getProduto();
+	}
+
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
 	}
 
 	public ItemVendaPK getId() {

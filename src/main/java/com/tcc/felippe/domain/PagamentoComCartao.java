@@ -2,9 +2,11 @@ package com.tcc.felippe.domain;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.tcc.felippe.domain.enums.EstadoPagamento;
 
 @Entity
+@JsonTypeName("Cartao")
 public class PagamentoComCartao extends Pagamento {
 
 	private static final long serialVersionUID = 1L;
